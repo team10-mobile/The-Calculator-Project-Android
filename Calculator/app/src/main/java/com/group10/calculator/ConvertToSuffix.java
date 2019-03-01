@@ -6,15 +6,12 @@ import java.util.ArrayList;
  * This is class coverts an intermediate expression to suffix expression
  */
 public class ConvertToSuffix {
+    private String Result;
     public STACK operandStack;
     public STACK operatorStack;
-
-    private String Result;
-
     public String getResult() {
         return Result;
     }
-
     public void setResult(String result) {
         Result = result;
     }
