@@ -1,4 +1,4 @@
-package com.e.team10.calculator;
+package com.group10.calculator;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
