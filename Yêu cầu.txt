@@ -1,0 +1,20 @@
+
+Nhóm cần thực hiện những công việc sau: 
+
+1/ Hoàn thành hồ sơ phân tích thiết kế cho dự án Calculator: (nộp trong phần Submit SRS) 
+
+- File cần có tên nhóm, các thành viên của nhóm 
+
+- Có phần nội dung (mục lục)
+
+- Có quy định style rõ ràng, paragraph, style, header, footer
+
+- Có use case diagram, class diagram, package diagram, UI design và đặc tả UI. 
+
+- Co bản phân công công việc cho từng thành viên. 
+
+- Một file presentation. (nộp trong phần Group Assignment) 
+
+Lưu ý: 
+
+- Khi present, điểm sẽ tính riêng cho từng cá nhân. Nên các cá nhân phải tự lực làm phần của mình để hiểu rõ và báo cáo. 

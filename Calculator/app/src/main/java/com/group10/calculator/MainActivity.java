@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +25,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String expression2 = "";
 
     boolean operatorClicked;
+=======
+
+public class MainActivity extends AppCompatActivity {
+>>>>>>> refs/remotes/origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
         MappingView();
     }
 
@@ -146,5 +152,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         polyomial = new ArrayList<String>();
         expression2 = appConvert.getResult();
         expression = appConvert.getResult();
+=======
+
+>>>>>>> refs/remotes/origin/master
     }
 }
