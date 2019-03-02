@@ -2,7 +2,6 @@ package com.group10.calculator;
 
 
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.Toast;
 
 /**
@@ -18,14 +17,13 @@ public class UnitConverter extends AppCompatActivity {
     private float[] resultValue;
     private float[] exchangeRate;
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//    }
 
     /**
      * This function process user confirm data convert
+     * @param input: number in textbox user input
+     * @param unit: the type unit user want convert
+     * @param  indexUnit: index of unit in spinner
+     *                    similar index in array nameUnit
      */
     public void Confirm(String input,String unit,int indexUnit)
     {
@@ -105,7 +103,20 @@ public class UnitConverter extends AppCompatActivity {
         for(int i = resultValue.length-1;i>=0;i--) {
             resultValue[i] = exchangeRate[i]/inputValue;
         }
-        //TODO : Process to return value show on display
+    }
+
+    /**
+     * @return array of value after convert
+     */
+    public float[] GetArrValue() {
+        return resultValue;
+    }
+
+    /**
+     * @return array of name of unit
+     */
+    public String[] GetArrName() {
+        return nameUnit;
     }
 
 }
