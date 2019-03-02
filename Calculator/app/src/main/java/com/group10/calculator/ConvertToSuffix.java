@@ -1,6 +1,8 @@
 package com.group10.calculator;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 /**
  * This is class coverts an intermediate expression to suffix expression
@@ -58,18 +60,6 @@ public class ConvertToSuffix {
     }
 
     /**
-     * @param infoNode: data of node
-     *                  This is function to add operator to the top of stack
-     */
-    public void PushOperator(String infoNode) {
-        while (!operatorStack.StackIsEmpty()
-                && GetOperator(operatorStack.Peak()) >= GetOperator(infoNode)) {
-            operandStack.Push(operatorStack.Pop());
-        }
-        operatorStack.Push(infoNode);
-    }
-
-    /**
      * This is function calculates the result of an expression
      */
     public void ResultOfExpression() {
@@ -103,30 +93,38 @@ public class ConvertToSuffix {
     }
 
     /**
-     * @return an expression after conversion
-     * This is function converts a suffix expression to intermediate expression
+     * This is the function to add operator to operandStack if it exists in operatorStack
      */
-    public String ConvertSuffixToIntermediate() {
-        STACK expression = new STACK();
-        ArrayList<String> op = new ArrayList<>();
-
-        for (Node p = operandStack.pTop; p != null; p = p.pNext) {
-            op.add(p.infoNode);
+    public void IsExistOperator() {
+        while (!operatorStack.StackIsEmpty()) {
+            operandStack.Push(operatorStack.Pop());
         }
-        for (int i = op.size() - 1; i >= 0; i--) {
-            if (IsOperator(op.get(i)) == 0) {
-                expression.Push(op.get(i));
-            } else {
-                String b = expression.Pop();
-                String a = expression.Pop();
+    }
 
-                if (op.get(i).equals("%")) {
-                    expression.Push("(" + a + "%" + ")");
-                } else {
-                    expression.Push("(" + a + " " + op.get(i) + " " + b + ")");
-                }
+    /**
+     * @param infoNode: data of node
+     *                  This is function to add operator to the top of stack
+     */
+    public void PushOperator(String infoNode) {
+        while (!operatorStack.StackIsEmpty()
+                && GetOperator(operatorStack.Peak()) >= GetOperator(infoNode)) {
+            operandStack.Push(operatorStack.Pop());
+        }
+        operatorStack.Push(infoNode);
+    }
+
+    /**
+     * @param expression:
+     * This is function converts a intermediate expression to suffix expression
+     */
+    public void ConvertIntermediateToSuffix(List<String> expression){
+        for(int i = 0;i<expression.size();i++){
+            if(GetOperator(expression.get(i)) == 0){
+                operandStack.Push(expression.get(i));
+            }else{
+                PushOperator(expression.get(i));
             }
         }
-        return expression.Pop();
+        IsExistOperator();
     }
 }
