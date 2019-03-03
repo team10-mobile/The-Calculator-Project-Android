@@ -28,7 +28,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 =======
 
 public class MainActivity extends AppCompatActivity {
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/master
+=======
+>>>>>>> accc9822b680ce40760f19a5898935cb7539fd99
+>>>>>>> branch-dev
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +158,10 @@ public class MainActivity extends AppCompatActivity {
         expression = appConvert.getResult();
 =======
 
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/master
+=======
+>>>>>>> accc9822b680ce40760f19a5898935cb7539fd99
+>>>>>>> branch-dev
     }
 }

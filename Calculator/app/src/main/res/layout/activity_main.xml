@@ -307,4 +307,8 @@
         android:layout_height="match_parent"
         app:menu="@menu/menu_navigation" />
 </android.support.v4.widget.DrawerLayout>
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/master
+=======
+>>>>>>> accc9822b680ce40760f19a5898935cb7539fd99
+>>>>>>> branch-dev
