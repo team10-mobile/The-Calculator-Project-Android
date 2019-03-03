@@ -75,7 +75,6 @@ public class ConvertToSuffix {
             } else {
                 double b = Double.parseDouble(expression.Pop());
                 double a = Double.parseDouble(expression.Pop());
-
                 if (op.get(i).equals("+")) {
                     expression.Push((a + b) + "");
                 } else if (op.get(i).equals("-")) {
@@ -84,8 +83,6 @@ public class ConvertToSuffix {
                     expression.Push((a * b) + "");
                 } else if (op.get(i).equals("/")) {
                     expression.Push((a / b) + "");
-                } else if (op.get(i).equals("%")) {
-                    expression.Push((a / 100) + "");
                 }
             }
         }

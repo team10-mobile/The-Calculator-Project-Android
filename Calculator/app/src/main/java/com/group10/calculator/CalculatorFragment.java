@@ -20,11 +20,17 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
     TextView txtExpression;
 
     Button[] btnArray;
-    List<String> polyomial = new ArrayList<String>();
+    List<String> polynomial = new ArrayList<String>();
     ConvertToSuffix appConvert;
 
     String numberCurrent = "";
+    /**
+     * To save the expression after clicking the operand
+     */
     String expression = "";
+    /**
+     * To save the expression after clicking the operator
+     */
     String expression2 = "";
 
     boolean operatorClicked;
@@ -40,7 +46,7 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
 
 
     /**
-     * This is the class to map and capture events for views
+     * This is the class to map and capture click event for all views
      */
     private void MappingView() {
         txtHistory = (TextView) activity.findViewById(R.id.textviewHistory);
@@ -71,6 +77,12 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
             PlusMinusButtonClicked();
         } else if ("total".equals(tag)) {
             TotalButtonClicked();
+        } else if ("del".equals(tag)) {
+            DeleteButtonClicked();
+        } else if ("clear".equals(tag)) {
+            ClearButtonClicked();
+        } else if ("percent".equals(tag)) {
+            PercentButtonClicked();
         }
     }
 
@@ -82,12 +94,11 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         if (!numberCurrent.contains(".")) {
             numberCurrent += ".";
         }
-        //Lấy chuỗi của biểu thức sau khi click toán tử + number
         txtExpression.setText(expression2 + numberCurrent);
     }
 
     /**
-     * This is function handle event PlusMinusButton clicked
+     * This is function handle event PlusMinus Button clicked
      */
     private void PlusMinusButtonClicked() {
         if (numberCurrent.contains("-")) {
@@ -95,9 +106,7 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         } else {
             numberCurrent = "-" + numberCurrent;
         }
-        //Lấy chuỗi của biểu thức sau khi click toán tử + number
         txtExpression.setText(expression2 + numberCurrent);
-        //Cập nhật biểu thức sau khi cập lại number
         expression = txtExpression.getText().toString();
     }
 
@@ -107,12 +116,9 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
      */
     private void OperandButtonClicked(String data) {
         numberCurrent += data;
-        //Lấy chuỗi của biểu thức sau khi click toán tử + number
         txtExpression.setText(expression2 + numberCurrent);
-        //Cập nhật biểu thức sau khi cập lại number
-        expression = txtExpression.getText().toString();//Lan cuoi cung chua operand
+        expression = txtExpression.getText().toString();
         operatorClicked = false;
-
     }
 
     /**
@@ -121,11 +127,12 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
      */
     private void OperatorButtonClicked(String data) {
         if (!operatorClicked) {
-            polyomial.add(numberCurrent);
-            polyomial.add(data);
+            if (!numberCurrent.equals("")) {
+                polynomial.add(numberCurrent);
+                polynomial.add(data);
+            }
 
             txtExpression.setText(expression + data);
-            //Cập nhật lại biểu thức 2 sau khi cộng cho toán tử
             expression2 = txtExpression.getText().toString();
             numberCurrent = "";
             operatorClicked = true;
@@ -136,23 +143,60 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
      * This is function handle event Total Button clicked
      */
     private void TotalButtonClicked() {
-        polyomial.add(numberCurrent);
-        int index = polyomial.size() - 1;
-        if (appConvert.GetOperator(polyomial.get(index)) != 0) {
-            polyomial.remove(index);
+        if (!operatorClicked)
+            polynomial.add(numberCurrent);
+        int index = polynomial.size() - 1;
+        if (appConvert.GetOperator(polynomial.get(index)) != 0) {
+            polynomial.remove(index);
         }
         String s = "";
-        for (int i = 0; i < polyomial.size(); i++) {
-            s = s + " " + polyomial.get(i);
+        for (int i = 0; i < polynomial.size(); i++) {
+            s = s + " " + polynomial.get(i);
         }
-        appConvert.ConvertIntermediateToSuffix(polyomial);
+        appConvert.ConvertIntermediateToSuffix(polynomial);
         appConvert.ResultOfExpression();
+
         txtHistory.setText(s);
         txtExpression.setText(appConvert.getResult());
         numberCurrent = appConvert.getResult();
-        polyomial = new ArrayList<String>();
-        expression2 = appConvert.getResult();
+        polynomial = new ArrayList<String>();
+        expression2 = "";
         expression = appConvert.getResult();
+        operatorClicked = false;
+    }
 
+    /**
+     * This is function handle event Clear Button clicked
+     */
+    private void ClearButtonClicked() {
+        expression = "";
+        expression2 = "";
+        numberCurrent = "";
+        appConvert = new ConvertToSuffix();
+        polynomial = new ArrayList<String>();
+        txtExpression.setText("0");
+        txtHistory.setText("0");
+    }
+
+    /**
+     * This is function handle event Delete Button clicked
+     */
+    private void DeleteButtonClicked() {
+        txtExpression.setText("0");
+        numberCurrent = "";
+        expression2 = "";
+    }
+
+    /**
+     * This is function handle event Percent Button clicked
+     */
+    private void PercentButtonClicked() {
+        if (!operatorClicked) {
+            String value = String.valueOf((Double.parseDouble(numberCurrent) / 100));
+            txtExpression.setText(expression2 + value);
+            txtHistory.setText(expression2 + value);
+            numberCurrent = value;
+            expression = txtExpression.getText().toString();
+        }
     }
 }
