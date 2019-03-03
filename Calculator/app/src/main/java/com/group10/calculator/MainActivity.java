@@ -40,12 +40,14 @@ public class MainActivity extends AppCompatActivity
     // created action bar in activity main
     private void CreatedActionBar() {
 
+        mDrawerLayout = findViewById(R.id.DrawerLayout);
         NavigationView navigationView = findViewById(R.id.NavigationView);
         navigationView.setNavigationItemSelectedListener(this);
         mDrawerToggle =
                 new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
@@ -54,7 +56,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mDrawerLayout = findViewById(R.id.DrawerLayout);
         CreatedActionBar();
 
         MappingView();
@@ -176,9 +177,11 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    //Bat su kien kien de mo drawer
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -186,23 +189,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Fragment fragment = null;
-        FragmentManager manager = getSupportFragmentManager();
-        switch (menuItem.getItemId()) {
 
-            case R.id.txt_Calculator:
-                // to do error must implement OnFragmentInteractionListener
-                // i can't fix :(
-                //fragment = new CalculatorFragment();
-                Toast.makeText(MainActivity.this, "Calculator perform", Toast.LENGTH_SHORT).show();
-                break;
+        if (menuItem.getItemId() == R.id.txt_Calculator) {
+
+            FragmentManager fragManager = getSupportFragmentManager();
+            FragmentTransaction fragTransaction = fragManager.beginTransaction();
+            CalculatorFragment fragCalculator = new CalculatorFragment();
+            fragTransaction.add(R.id.framelayout, fragCalculator);
+            fragTransaction.commit();
         }
-        //manager.beginTransaction().replace(R.id.DrawerLayout,fragment).commit();
         return true;
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
 }
