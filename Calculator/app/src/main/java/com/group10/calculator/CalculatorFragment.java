@@ -28,6 +28,11 @@ public class CalculatorFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private OnHeadlineSelectedListener mCallback;
+    // Container Activity must implement this interface
+    public interface OnHeadlineSelectedListener {
+        public void onArticleSelected(int position);
+    }
 
     public CalculatorFragment() {
         // Required empty public constructor
@@ -105,4 +110,6 @@ public class CalculatorFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

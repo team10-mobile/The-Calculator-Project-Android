@@ -2,12 +2,15 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:icon="@drawable/ic_calculator"
         android:id="@+id/txt_Calculator"
         android:title="Calculator" />
     <item
+        android:icon="@drawable/ic_convert"
         android:id="@+id/txt_Convert"
         android:title="Convert" />
     <item
+        android:icon="@drawable/ic_convert_money"
         android:id="@+id/txt_Money"
         android:title="Convert Money" />
 </menu>
