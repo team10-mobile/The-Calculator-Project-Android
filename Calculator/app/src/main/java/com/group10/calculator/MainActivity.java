@@ -9,21 +9,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-=======
 import android.view.MenuItem;
->>>>>>> 59d539463417ab54512019c73fd4b828721fc45c
 import android.widget.Toast;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity
+        implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
     TextView txtHistory;
     TextView txtExpression;
 
@@ -36,36 +33,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String expression2 = "";
 
     boolean operatorClicked;
-=======
-
-<<<<<<< HEAD
-public class MainActivity extends AppCompatActivity {
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/master
-=======
->>>>>>> accc9822b680ce40760f19a5898935cb7539fd99
->>>>>>> branch-dev
-=======
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
-{
->>>>>>> 59d539463417ab54512019c73fd4b828721fc45c
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
     // created action bar in activity main
-    private void CreatedActionBar()
-    {
+    private void CreatedActionBar() {
 
         NavigationView navigationView = findViewById(R.id.NavigationView);
         navigationView.setNavigationItemSelectedListener(this);
         mDrawerToggle =
-                new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
+                new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +57,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout = findViewById(R.id.DrawerLayout);
         CreatedActionBar();
 
-
-<<<<<<< HEAD
-<<<<<<< HEAD
         MappingView();
     }
 
@@ -192,20 +173,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         polyomial = new ArrayList<String>();
         expression2 = appConvert.getResult();
         expression = appConvert.getResult();
-=======
 
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/master
-=======
->>>>>>> accc9822b680ce40760f19a5898935cb7539fd99
->>>>>>> branch-dev
-=======
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(mDrawerToggle.onOptionsItemSelected(item))
-        {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -215,18 +188,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
         FragmentManager manager = getSupportFragmentManager();
-        switch (menuItem.getItemId())
-        {
+        switch (menuItem.getItemId()) {
 
             case R.id.txt_Calculator:
                 // to do error must implement OnFragmentInteractionListener
                 // i can't fix :(
                 //fragment = new CalculatorFragment();
-                Toast.makeText(MainActivity.this,"Calculator perform",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Calculator perform", Toast.LENGTH_SHORT).show();
                 break;
         }
         //manager.beginTransaction().replace(R.id.DrawerLayout,fragment).commit();
         return true;
->>>>>>> 59d539463417ab54512019c73fd4b828721fc45c
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }
