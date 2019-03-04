@@ -4,6 +4,7 @@ package com.group10.calculator;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+
 /**
  * class use value input, type unit, specific units
  * for return 2 array : 1 array contain all name unit
@@ -25,22 +26,31 @@ public class UnitConverter extends AppCompatActivity {
      * @param  indexUnit: index of unit in spinner
      *                    similar index in array nameUnit
      */
-    public void Confirm(String input,String unit,int indexUnit)
+    public void Confirm(String input, String unit, int indexUnit)
     {
-        try{
+
+        /*try{
             inputValue  = Float.parseFloat(input);
             indexChoice = indexUnit;
         }
         catch (Exception e) {
             inputValue  = 0;
             indexChoice = 0;
+        }*/
+        if (input.isEmpty()){
+            inputValue  = 0;
+            indexChoice = 0;
+        }
+        else{
+            inputValue  = Float.parseFloat(input);
+            indexChoice = indexUnit;
         }
         switch(unit) {
-            case "LENGTH" : LengthConverter(); break;
-            case "VOLUME" : VolumeConverter(); break;
-            case "WEIGHT" : WeightConverter(); break;
-            case "AREA"   : AreaConverter();   break;
-            case"CURRENCY":CurrencyConverter();break;
+            case "LENGTH"  : LengthConverter();   break;
+            case "VOLUME"  : VolumeConverter();   break;
+            case "WEIGHT"  : WeightConverter();   break;
+            case "AREA"    : AreaConverter();     break;
+            case "CURRENCY": CurrencyConverter(); break;
             default: Toast.makeText(UnitConverter.this,"Invalid unit",Toast.LENGTH_LONG).show();
                 return;
         }
