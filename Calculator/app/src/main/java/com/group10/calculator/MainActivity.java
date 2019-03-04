@@ -1,5 +1,6 @@
 package com.group10.calculator;
 
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -66,17 +67,18 @@ public class MainActivity extends AppCompatActivity
         switch (menuItem.getItemId()){
             case R.id.txt_Calculator:
                 CalculatorFragment fragCalculator = new CalculatorFragment();
-                fragTransaction.add(R.id.framelayout, fragCalculator);
+                fragTransaction.replace(R.id.framelayout, fragCalculator);
                 break;
             case R.id.txt_Money:
                 ConvertMoneyFragment fragConvertMoney= new ConvertMoneyFragment();
-                fragTransaction.add(R.id.framelayout, fragConvertMoney);
+                fragTransaction.replace(R.id.framelayout, fragConvertMoney);
                 break;
             case R.id.txt_Convert:
 
                 break;
             case R.id.txt_History:
-
+                HistoryFragment view_history = new HistoryFragment();
+                fragTransaction.replace(R.id.framelayout,view_history);
                 break;
         }
         fragTransaction.commit();
