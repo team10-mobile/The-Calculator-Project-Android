@@ -20,6 +20,9 @@
         android:gravity="center"
         android:textColor="#F67519"/>
     <EditText
+        android:tag="0"
+        android:hint="Việt Nam Đồng"
+        android:id="@+id/edt_VND"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -38,6 +41,9 @@
         android:gravity="center"
         android:textColor="#F67519"/>
     <EditText
+        android:tag="1"
+        android:hint="Euro"
+        android:id="@+id/edt_EUR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -56,6 +62,9 @@
             android:gravity="center"
             android:textColor="#F67519"/>
         <EditText
+            android:tag="2"
+            android:hint="Đồng bảng Anh"
+            android:id="@+id/edt_GBP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -73,6 +82,9 @@
             android:gravity="center"
             android:textColor="#F67519"/>
         <EditText
+            android:tag="3"
+            android:hint="Đồng Yên Nhật"
+            android:id="@+id/edt_JPY"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -90,6 +102,9 @@
             android:gravity="center"
             android:textColor="#F67519"/>
         <EditText
+            android:tag="4"
+            android:hint="Đồng đô la Mỹ"
+            android:id="@+id/edt_USD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -107,6 +122,9 @@
             android:gravity="center"
             android:textColor="#F67519"/>
         <EditText
+            android:tag="5"
+            android:hint="Đồng đô la Úc"
+            android:id="@+id/edt_AUD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -124,6 +142,9 @@
             android:gravity="center"
             android:textColor="#F67519"/>
         <EditText
+            android:tag="6"
+            android:hint="Đồng đô la Canada"
+            android:id="@+id/edt_CAD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -141,6 +162,9 @@
             android:gravity="center"
             android:textColor="#F67519"/>
         <EditText
+            android:tag="7"
+            android:hint="Đồng Franc Thụy Sỹ"
+            android:id="@+id/edt_CHF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -158,6 +182,9 @@
             android:gravity="center"
             android:textColor="#F67519"/>
         <EditText
+            android:tag="8"
+            android:hint="Đồng Nhân Dân tệ"
+            android:id="@+id/edt_CNY"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -175,6 +202,9 @@
             android:gravity="center"
             android:textColor="#F67519"/>
         <EditText
+            android:tag="9"
+            android:hint="Đồng Won Hàn Quốc"
+            android:id="@+id/edt_KRW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -192,9 +222,13 @@
             android:gravity="center"
             android:textColor="#F67519"/>
         <EditText
+            android:tag="10"
+            android:hint="Đồng đô la Singapore"
+            android:id="@+id/edt_SGD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number"/>
+            android:inputType="number"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 </LinearLayout>
