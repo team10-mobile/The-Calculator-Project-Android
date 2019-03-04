@@ -4,70 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/DrawerLayout"
-    >
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="4">
-        <Button
-            android:tag="num"
-            android:id="@+id/buttonNumber0"
-            android:layout_margin="2dp"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:background="@drawable/btn_number"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text="0"
-            android:textSize="30sp" />
-        <Button
-            android:tag="dot"
-            android:id="@+id/buttonDot"
-            android:layout_margin="2dp"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:background="@drawable/btn_number"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text="."
-            android:textSize="30sp" />
-        <Button
-            android:tag="total"
-            android:id="@+id/buttonTotal"
-            android:layout_margin="2dp"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:background="@drawable/btn_number"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text="="
-            android:textSize="30sp" />
-        <Button
-            android:tag="operator"
-            android:id="@+id/buttonAdd"
-            android:layout_margin="2dp"
-            android:layout_gravity="center"
-            android:background="@drawable/btn_operand"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text="+"
-            android:textSize="30sp"
-            android:textColor="@color/colorPhim"
-            />
-    </LinearLayout>
-
+    android:id="@+id/DrawerLayout">
 
     <FrameLayout
         android:id="@+id/framelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/NavigationView"
         android:layout_width="wrap_content"
@@ -76,7 +20,5 @@
         app:menu="@menu/menu_navigation"
         app:headerLayout="@layout/header_actionbar"
         />
-
-
 
 </android.support.v4.widget.DrawerLayout>

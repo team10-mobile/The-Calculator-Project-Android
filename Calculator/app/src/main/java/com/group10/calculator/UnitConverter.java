@@ -100,7 +100,7 @@ public class UnitConverter extends AppCompatActivity {
      */
     private void ProcessConverting()
     {
-        for(int i = resultValue.length-1;i>=0;i--) {
+        for(int i = resultValue.length-1; i >= 0; i--) {
             resultValue[i] = exchangeRate[i]/inputValue;
         }
     }

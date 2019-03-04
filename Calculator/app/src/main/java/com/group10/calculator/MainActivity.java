@@ -40,13 +40,19 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         CreatedActionBar();
+        FirstAddCalculator();
     }
-
+    private void FirstAddCalculator(){
+        FragmentManager fragManager = getSupportFragmentManager();
+        FragmentTransaction fragTransaction = fragManager.beginTransaction();
+        CalculatorFragment fragCalculator = new CalculatorFragment();
+        fragTransaction.add(R.id.framelayout, fragCalculator);
+        fragTransaction.commit();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
-
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -55,13 +61,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         menuItem.setChecked(true);
-        if (menuItem.getItemId() == R.id.txt_Calculator) {
-            FragmentManager fragManager = getSupportFragmentManager();
-            FragmentTransaction fragTransaction = fragManager.beginTransaction();
-            CalculatorFragment fragCalculator = new CalculatorFragment();
-            fragTransaction.add(R.id.framelayout, fragCalculator);
-            fragTransaction.commit();
+        FragmentManager fragManager = getSupportFragmentManager();
+        FragmentTransaction fragTransaction = fragManager.beginTransaction();
+        switch (menuItem.getItemId()){
+            case R.id.txt_Calculator:
+                CalculatorFragment fragCalculator = new CalculatorFragment();
+                fragTransaction.add(R.id.framelayout, fragCalculator);
+                break;
+            case R.id.txt_Money:
+                ConvertMoneyFragment fragConvertMoney= new ConvertMoneyFragment();
+                fragTransaction.add(R.id.framelayout, fragConvertMoney);
+                break;
+            case R.id.txt_Convert:
+
+                break;
+            case R.id.txt_History:
+
+                break;
         }
+        fragTransaction.commit();
         return true;
     }
 }
