@@ -26,28 +26,24 @@ public class ConvertMoneyFragment extends Fragment {
         return FragmentConvertMoney;
     }
     /**
-     * Assign Event To EditText and first Text
+     * Assign Event To EditText
      */
     private void AssignEventToEditText(){
         for (int i = 0; i < 11; i++){
-            mEditTextMoneyList[i].setText("0");
-            mEditTextMoneyList[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    EditText ThisEditText = (EditText)view;
-                    ThisEditText.setText("0");
-                }
-            });
             mEditTextMoneyList[i].setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View view, int i, KeyEvent keyEvent) {
                     EditText ThisEditText = (EditText)view;
-                    int ThisTag = Integer.parseInt(ThisEditText.getTag().toString());
-                    mCurrencyAdapter.Confirm(mEditTextMoneyList[ThisTag].getText().toString(),"CURRENCY", ThisTag);
-                    for (int j = 0; j < 11 ; j++){
-                        if (j == ThisTag)
-                            continue;
-                        mEditTextMoneyList[j].setText(mCurrencyAdapter.GetArrValue()[j] + "");
+                    if (ThisEditText.getText().toString().isEmpty())
+                        return false;
+                    else{
+                        int ThisTag = Integer.parseInt(ThisEditText.getTag().toString());
+                        mCurrencyAdapter.Confirm(mEditTextMoneyList[ThisTag].getText().toString(),"CURRENCY", ThisTag);
+                        for (int j = 0; j < 11 ; j++){
+                            if (j == ThisTag)
+                                continue;
+                            mEditTextMoneyList[j].setText(mCurrencyAdapter.GetArrValue()[j] + "");
+                        }
                     }
                     return false;
                 }
