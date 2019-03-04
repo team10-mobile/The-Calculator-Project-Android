@@ -73,7 +73,8 @@ public class MainActivity extends AppCompatActivity
                 fragTransaction.add(R.id.framelayout, fragConvertMoney);
                 break;
             case R.id.txt_Convert:
-
+                ConverterUnitFragment fragConverterUnit = new ConverterUnitFragment();
+                fragTransaction.replace(R.id.framelayout, fragConverterUnit);
                 break;
             case R.id.txt_History:
 
@@ -82,4 +83,5 @@ public class MainActivity extends AppCompatActivity
         fragTransaction.commit();
         return true;
     }
+
 }
