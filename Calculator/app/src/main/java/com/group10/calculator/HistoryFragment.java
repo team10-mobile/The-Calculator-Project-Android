@@ -1,6 +1,5 @@
 package com.group10.calculator;
 
-<<<<<<< HEAD
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.content.Context;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-=======
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,7 +24,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
->>>>>>> 621dc1ca139f66116e9e5ae4207f5a41f9f9a28b
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -50,10 +47,7 @@ public class HistoryFragment extends Fragment {
     private SharedPreferences.Editor editor;
     private Set<String> stringSet;
     private ArrayList<String> array;
-<<<<<<< HEAD
     private int position;
-=======
->>>>>>> 621dc1ca139f66116e9e5ae4207f5a41f9f9a28b
 
     /**
      * This is function handle convert hashset to arraylist
@@ -81,7 +75,6 @@ public class HistoryFragment extends Fragment {
     /**
      * This is function handle remove value when long click into listview
      */
-<<<<<<< HEAD
     private void RemoveItemClick()
     {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -127,25 +120,26 @@ public class HistoryFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ResetColor();
                 view.setBackgroundColor(Color.GRAY);
-=======
-    private void RemoveItem()
-    {
-        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                editor = sharedPreferences.edit();
-                stringSet.remove(array.get(position));
-                array.remove(position);
-                editor.putStringSet("data",stringSet);
-                editor.commit();
-                mListItemHistory.remove(position);
-                history_adapter.notifyDataSetChanged();
-                Toast.makeText(getContext(),"Remove success",Toast.LENGTH_SHORT).show();
-                return false;
->>>>>>> 621dc1ca139f66116e9e5ae4207f5a41f9f9a28b
             }
         });
     }
+//    private void RemoveItem()
+//    {
+//        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                editor = sharedPreferences.edit();
+//                stringSet.remove(array.get(position));
+//                array.remove(position);
+//                editor.putStringSet("data",stringSet);
+//                editor.commit();
+//                mListItemHistory.remove(position);
+//                history_adapter.notifyDataSetChanged();
+//                Toast.makeText(getContext(),"Remove success",Toast.LENGTH_SHORT).show();
+//                return false;
+//            }
+//        });
+//    }
     /**
      * This is function handle create list itemhistory and put it on listview
      */
@@ -161,7 +155,6 @@ public class HistoryFragment extends Fragment {
         mListView.setAdapter(history_adapter);
 
         //Event remove item
-<<<<<<< HEAD
         RemoveItemClick();
 
         //Click item
@@ -213,10 +206,7 @@ public class HistoryFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-=======
-        RemoveItem();
-        // Inflate the layout for this fragment
-        return view;
-    }
->>>>>>> 621dc1ca139f66116e9e5ae4207f5a41f9f9a28b
+    //emoveItem();
+    // Inflate the layout for this fragment
+       // return view;
 }
