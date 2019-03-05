@@ -152,6 +152,7 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
     private void TotalButtonClicked() {
         if (!operatorClicked)
             polynomial.add(numberCurrent);
+        if(polynomial.size() == 0) return;
         int index = polynomial.size() - 1;
         if (appConvert.GetOperator(polynomial.get(index)) != 0) {
             polynomial.remove(index);
@@ -200,6 +201,7 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
      * This is function handle event Percent Button clicked
      */
     private void PercentButtonClicked() {
+        if(numberCurrent.equals("")) return;;
         if (!operatorClicked) {
             String value = String.valueOf((Double.parseDouble(numberCurrent) / 100));
             txtExpression.setText(expression2 + value);
