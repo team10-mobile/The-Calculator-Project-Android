@@ -29,22 +29,15 @@ public class UnitConverter extends AppCompatActivity {
     public void Confirm(String input, String unit, int indexUnit)
     {
 
-        /*try{
+        try{
             inputValue  = Float.parseFloat(input);
             indexChoice = indexUnit;
         }
-        catch (Exception e) {
-            inputValue  = 0;
-            indexChoice = 0;
-        }*/
-        if (input.isEmpty()){
+        catch (NumberFormatException e) {
             inputValue  = 0;
             indexChoice = 0;
         }
-        else{
-            inputValue  = Float.parseFloat(input);
-            indexChoice = indexUnit;
-        }
+
         switch(unit) {
             case "LENGTH"  : LengthConverter();   break;
             case "VOLUME"  : VolumeConverter();   break;
