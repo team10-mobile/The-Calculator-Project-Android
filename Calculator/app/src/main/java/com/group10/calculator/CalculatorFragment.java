@@ -14,16 +14,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-<<<<<<< HEAD
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-=======
+
 import com.group10.calculator.dummy.ItemHistory;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
->>>>>>> 621dc1ca139f66116e9e5ae4207f5a41f9f9a28b
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
