@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,6 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
     String expression2 = "";
 
     boolean operatorClicked;
-    int flag = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -143,7 +143,6 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
      * This is function handle event Total Button clicked
      */
     private void TotalButtonClicked() {
-
         if (!operatorClicked)
             polynomial.add(numberCurrent);
         int index = polynomial.size() - 1;
