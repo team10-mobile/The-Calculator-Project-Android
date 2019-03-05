@@ -59,7 +59,7 @@ public class UnitFragment extends Fragment {
     public void AddItemToSpinner(String[] item)
     {
         listNameUnit.clear();
-        for(int i=0;i<item.length;i++)
+        for(int i=0; i < item.length;i++)
             listNameUnit.add(item[i]);
         adapter.notifyDataSetChanged();
     }
