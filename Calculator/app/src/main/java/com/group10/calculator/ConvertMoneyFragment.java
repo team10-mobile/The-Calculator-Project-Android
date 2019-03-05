@@ -10,21 +10,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+/**
+ * This is class extends fragment to display on MainActivity
+ */
 public class ConvertMoneyFragment extends Fragment {
+
     private UnitConverter mCurrencyAdapter;
     private int[] mEditTextMoneyListID;
     private EditText[] mEditTextMoneyList;
-    private View FragmentConvertMoney;
+    private View mFragmentConvertMoney;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FragmentConvertMoney =
+        mFragmentConvertMoney =
                 inflater.inflate(R.layout.fragment_convertmoney, container, false);
         MapArrayEditText();
         AssignEventToEditText();
-        return FragmentConvertMoney;
+        return mFragmentConvertMoney;
     }
+
     /**
      * Assign Event To EditText
      */
@@ -50,6 +55,7 @@ public class ConvertMoneyFragment extends Fragment {
             });
         }
     }
+
     /**
      * Map Array Edit Text from Int Array
      */
@@ -58,9 +64,10 @@ public class ConvertMoneyFragment extends Fragment {
         mCurrencyAdapter = new UnitConverter();
         mEditTextMoneyList = new EditText[11];
         for (int i = 0; i < 11; i++){
-            mEditTextMoneyList[i] = FragmentConvertMoney.findViewById(mEditTextMoneyListID[i]);
+            mEditTextMoneyList[i] = mFragmentConvertMoney.findViewById(mEditTextMoneyListID[i]);
         }
     }
+
     /**
      * Assign Id To Int Array
      */
