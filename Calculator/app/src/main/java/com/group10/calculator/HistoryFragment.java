@@ -66,15 +66,6 @@ public class HistoryFragment extends Fragment {
     /**
      * This is function handle remove value when long click into listview
      */
-    private void RemoveItemClick()
-    {
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int _position, long id) {
-                position = _position;
-            }
-        });
-    }
     /**
      * This is function handle remove value when click into listview
      */
@@ -95,11 +86,13 @@ public class HistoryFragment extends Fragment {
     private void ResetColor()
     {
         View view;
-        for(int i=0;i<mListItemHistory.size();i++)
-        {
-            view = mListView.getChildAt(i);
-            view.setBackgroundColor(Color.rgb(199,215,216));
+        try {
+            for (int i = 0; i < mListItemHistory.size(); i++) {
+                view = mListView.getChildAt(i);
+                view.setBackgroundColor(Color.rgb(199, 215, 216));
+            }
         }
+        catch (Exception e){};
     }
     /**
      * This is function click item on list
@@ -108,9 +101,10 @@ public class HistoryFragment extends Fragment {
     {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int _position, long id) {
                 ResetColor();
                 view.setBackgroundColor(Color.GRAY);
+                position = _position;
             }
         });
     }
@@ -127,10 +121,6 @@ public class HistoryFragment extends Fragment {
         history_adapter =
                 new History_Adapter(getContext(),R.layout.history_view,mListItemHistory);
         mListView.setAdapter(history_adapter);
-
-        //Event remove item
-        RemoveItemClick();
-
         //Click item
         ClickItem();
         // Inflate the layout for this fragment
