@@ -1,13 +1,21 @@
 package com.group10.calculator;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.content.Context;
+import android.graphics.Color;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,6 +39,7 @@ public class HistoryFragment extends Fragment {
     private SharedPreferences.Editor editor;
     private Set<String> stringSet;
     private ArrayList<String> array;
+    private int position;
 
     /**
      * This is function handle convert hashset to arraylist
@@ -58,20 +67,51 @@ public class HistoryFragment extends Fragment {
     /**
      * This is function handle remove value when long click into listview
      */
+    private void RemoveItemClick()
+    {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int _position, long id) {
+                position = _position;
+            }
+        });
+    }
+    /**
+     * This is function handle remove value when click into listview
+     */
     private void RemoveItem()
     {
-        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        editor = sharedPreferences.edit();
+        stringSet.remove(array.get(position));
+        array.remove(position);
+        editor.putStringSet("data",stringSet);
+        editor.commit();
+        mListItemHistory.remove(position);
+        history_adapter.notifyDataSetChanged();
+        Toast.makeText(getContext(),"Remove success",Toast.LENGTH_SHORT).show();
+    }
+    /**
+     * This is function make color all item view on listview as begin
+     */
+    private void ResetColor()
+    {
+        View view;
+        for(int i=0;i<mListItemHistory.size();i++)
+        {
+            view = mListView.getChildAt(i);
+            view.setBackgroundColor(Color.rgb(199,215,216));
+        }
+    }
+    /**
+     * This is function click item on list
+     */
+    private void ClickItem()
+    {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                editor = sharedPreferences.edit();
-                stringSet.remove(array.get(position));
-                array.remove(position);
-                editor.putStringSet("data",stringSet);
-                editor.commit();
-                mListItemHistory.remove(position);
-                history_adapter.notifyDataSetChanged();
-                Toast.makeText(getContext(),"Remove success",Toast.LENGTH_SHORT).show();
-                return false;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ResetColor();
+                view.setBackgroundColor(Color.GRAY);
             }
         });
     }
@@ -90,8 +130,55 @@ public class HistoryFragment extends Fragment {
         mListView.setAdapter(history_adapter);
 
         //Event remove item
-        RemoveItem();
+        RemoveItemClick();
+
+        //Click item
+        ClickItem();
         // Inflate the layout for this fragment
         return view;
+    }
+    /**
+     * This is function create dialog comfirm remove
+     */
+    private void ConfirmRemove()
+    {
+        AlertDialog.Builder aBuilder = new AlertDialog.Builder(this.getContext());
+        aBuilder.setMessage("Are you sure !!! you will lose these forever");
+        aBuilder.setTitle("Warning");
+        aBuilder.setIcon(R.drawable.ic_warning);
+        aBuilder.setPositiveButton("Yes I want", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                RemoveItem();
+            }
+        });
+        aBuilder.show();
+    }
+    /**
+     * This is functions create menu remove
+     */
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_remove,menu);
+    }
+    /**
+     * This is functions click items menu
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.remove:
+                if( mListItemHistory.size()!=0)
+                    ConfirmRemove();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

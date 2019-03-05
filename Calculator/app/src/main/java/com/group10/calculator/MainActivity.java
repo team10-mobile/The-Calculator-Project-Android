@@ -1,6 +1,5 @@
 package com.group10.calculator;
 
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -11,21 +10,21 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import android.view.Gravity;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements  NavigationView.OnNavigationItemSelectedListener {
-
     private DrawerLayout mDrawerLayout;
+    private NavigationView navigationView;
     private ActionBarDrawerToggle mDrawerToggle;
 
     /**
      * This is function create ActionBar in MainActivity
      */
     private void CreatedActionBar() {
-
         mDrawerLayout = findViewById(R.id.DrawerLayout);
-        NavigationView navigationView = findViewById(R.id.NavigationView);
+        navigationView = findViewById(R.id.NavigationView);
         navigationView.setNavigationItemSelectedListener(this);
         mDrawerToggle =
                 new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
@@ -82,6 +81,7 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
         fragTransaction.commit();
+        mDrawerLayout.closeDrawer(Gravity.LEFT);
         return true;
     }
 }
