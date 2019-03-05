@@ -2,21 +2,21 @@ package com.group10.calculator;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.support.design.widget.TabLayout;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v4.view.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * class control fragment when pageviewer changed
+ */
 class SectionsPageAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -70,25 +70,51 @@ public class ConverterUnitFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Set fragment on each tablayout
+     * @param viewPager : container in fragment, use to change other tab
+     */
+
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getChildFragmentManager());
 
+        UnitConverter converter = new UnitConverter();
+
         UnitFragment frLength = new UnitFragment();
-        frLength.ChoiceUnit(0);
+        converter.Confirm("0","LENGTH",0);
+        frLength.unitOfFragment = "LENGTH";
+        SendDataToChild(converter.GetArrName(),frLength);
         adapter.addFragment(frLength, "LENGTH");
 
         UnitFragment frArea = new UnitFragment();
-        frLength.ChoiceUnit(1);
+        converter.Confirm("0","AREA",0);
+        frArea.unitOfFragment = "AREA";
+        SendDataToChild(converter.GetArrName(),frArea);
         adapter.addFragment(frArea, "AREA");
 
         UnitFragment frWeight = new UnitFragment();
-        frLength.ChoiceUnit(2);
+        converter.Confirm("0","WEIGHT",0);
+        frWeight.unitOfFragment = "WEIGHT";
+        SendDataToChild(converter.GetArrName(),frWeight);
         adapter.addFragment(frWeight, "WEIGHT");
 
         UnitFragment frVolume = new UnitFragment();
-        frLength.ChoiceUnit(3);
+        converter.Confirm("0","VOLUME",0);
+        frVolume.unitOfFragment = "VOLUME";
+        SendDataToChild(converter.GetArrName(),frVolume);
         adapter.addFragment(frVolume, "VOLUME");
 
         viewPager.setAdapter(adapter);
+    }
+
+    /**
+     * Send data to children
+     * @param sign : array sign of unit
+     * @param fr : fragment children
+     */
+    private void SendDataToChild(String[] sign,UnitFragment fr)
+    {
+        for(int i=0;i<sign.length;i++)
+            fr.listNameUnit.add(sign[i]);
     }
 }
