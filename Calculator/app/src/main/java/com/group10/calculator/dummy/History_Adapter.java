@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.group10.calculator.HistoryFragment;
 import com.group10.calculator.R;
 
 import java.util.List;
@@ -44,7 +43,9 @@ public class History_Adapter extends BaseAdapter {
         return 0;
     }
 
-
+    /**
+     * This is class function handle return view for support listview and set value for perform view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater

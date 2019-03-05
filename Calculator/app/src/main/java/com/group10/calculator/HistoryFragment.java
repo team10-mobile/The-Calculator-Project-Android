@@ -15,15 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -123,23 +114,6 @@ public class HistoryFragment extends Fragment {
             }
         });
     }
-//    private void RemoveItem()
-//    {
-//        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                editor = sharedPreferences.edit();
-//                stringSet.remove(array.get(position));
-//                array.remove(position);
-//                editor.putStringSet("data",stringSet);
-//                editor.commit();
-//                mListItemHistory.remove(position);
-//                history_adapter.notifyDataSetChanged();
-//                Toast.makeText(getContext(),"Remove success",Toast.LENGTH_SHORT).show();
-//                return false;
-//            }
-//        });
-//    }
     /**
      * This is function handle create list itemhistory and put it on listview
      */
@@ -193,7 +167,7 @@ public class HistoryFragment extends Fragment {
         inflater.inflate(R.menu.menu_remove,menu);
     }
     /**
-     * This is functions click items menu
+     * This is function click items menu
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -206,7 +180,4 @@ public class HistoryFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-    //emoveItem();
-    // Inflate the layout for this fragment
-       // return view;
 }

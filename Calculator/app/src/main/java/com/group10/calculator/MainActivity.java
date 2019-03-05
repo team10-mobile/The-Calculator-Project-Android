@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity
         CreatedActionBar();
         FirstAddCalculator();
     }
+    /**
+     * This is function create fragment caculator on first
+     */
     private void FirstAddCalculator(){
         FragmentManager fragManager = getSupportFragmentManager();
         FragmentTransaction fragTransaction = fragManager.beginTransaction();
@@ -57,7 +60,9 @@ public class MainActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
-
+    /**
+     * This is function handle fragments
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         menuItem.setChecked(true);
