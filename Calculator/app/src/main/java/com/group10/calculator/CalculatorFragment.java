@@ -1,32 +1,15 @@
 package com.group10.calculator;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import com.group10.calculator.dummy.ItemHistory;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * This is class extends fragment to display on MainActivity
@@ -116,7 +99,6 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
 
     /**
      * This is function handle event PlusMinus Button clicked
-     *
      */
     private void PlusMinusButtonClicked() {
         if (numberCurrent.contains("-")) {
@@ -156,29 +138,7 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
             operatorClicked = true;
         }
     }
-    /**
-     * This is function handle both result and operand in history
-     * value be formated: result | perand | day/month/year hour:minutes:second
-     * @author: by Tran long
-     */
-    private void AddValueHistory(String _result, String _operand)
-    {
 
-        Set<String> stringSet = new HashSet<>();
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
-
-        stringSet = sharedPreferences.getStringSet("data",stringSet);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-        Calendar calendar = Calendar.getInstance();
-        Date time = calendar.getTime();
-        String value = _result + "|" + _operand + "|" + simpleDateFormat.format(time);
-        stringSet.add(value);
-        editor.putStringSet("data",stringSet);
-        editor.commit();
-
-    }
     /**
      * This is function handle event Total Button clicked
      */
@@ -203,7 +163,6 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         expression2 = "";
         expression = appConvert.getResult();
         operatorClicked = false;
-        AddValueHistory(txtHistory.getText().toString(),txtExpression.getText().toString());
     }
 
     /**
