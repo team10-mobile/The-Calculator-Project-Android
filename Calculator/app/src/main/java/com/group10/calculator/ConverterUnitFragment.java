@@ -71,7 +71,7 @@ public class ConverterUnitFragment extends Fragment {
     }
 
     /**
-     * Set fragment on each tablayout
+     * This is set fragment on each tablayout
      * @param viewPager : container in fragment, use to change other tab
      */
 
@@ -108,7 +108,7 @@ public class ConverterUnitFragment extends Fragment {
     }
 
     /**
-     * Send data to children
+     * This is function send data to children
      * @param sign : array sign of unit
      * @param fr : fragment children
      */

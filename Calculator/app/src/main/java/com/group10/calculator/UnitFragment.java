@@ -17,6 +17,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is class of children fragment
+ */
 public class UnitFragment extends Fragment {
 
     private View fragment;
@@ -55,7 +58,7 @@ public class UnitFragment extends Fragment {
     }
 
     /**
-     * Assign Event To Spinner
+     * This is function assign Event To Spinner
      * Value of different textbox change when spinner selected and edittext content value
      */
     private void AssignEventToSpinner() {
@@ -80,7 +83,7 @@ public class UnitFragment extends Fragment {
     }
 
     /**
-     * Assign Event To EditText
+     * This is function assign Event To EditText
      * Value of different unit change when text of EditText change
      */
     private void AssignEventToEditText() {
@@ -101,7 +104,7 @@ public class UnitFragment extends Fragment {
     }
 
     /**
-     * Mapping all view to id of view on fragment
+     * This is function mapping all view to id of view on fragment
      */
     private void MappingView()
     {
