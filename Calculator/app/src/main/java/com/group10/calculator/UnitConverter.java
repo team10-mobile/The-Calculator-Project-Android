@@ -105,8 +105,7 @@ public class UnitConverter extends AppCompatActivity {
     {
         for(int i = resultValue.length-1; i >= 0; i--) {
             resultValue[i] = Float.parseFloat(String.format("%.5f",inputValue/exchangeRate[i]));
-        }
-    }
+        }    }
 
     /**
      * @return array of value after convert

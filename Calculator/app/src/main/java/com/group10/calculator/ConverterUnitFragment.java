@@ -81,27 +81,19 @@ public class ConverterUnitFragment extends Fragment {
         UnitConverter converter = new UnitConverter();
 
         UnitFragment frLength = new UnitFragment();
-        converter.Confirm("0","LENGTH",0);
-        frLength.unitOfFragment = "LENGTH";
-        SendDataToChild(converter.GetArrName(),frLength);
+        SendDataToChild("LENGTH", frLength);
         adapter.addFragment(frLength, "LENGTH");
 
         UnitFragment frArea = new UnitFragment();
-        converter.Confirm("0","AREA",0);
-        frArea.unitOfFragment = "AREA";
-        SendDataToChild(converter.GetArrName(),frArea);
+        SendDataToChild("AREA", frArea);
         adapter.addFragment(frArea, "AREA");
 
         UnitFragment frWeight = new UnitFragment();
-        converter.Confirm("0","WEIGHT",0);
-        frWeight.unitOfFragment = "WEIGHT";
-        SendDataToChild(converter.GetArrName(),frWeight);
+        SendDataToChild("WEIGHT", frWeight);
         adapter.addFragment(frWeight, "WEIGHT");
 
         UnitFragment frVolume = new UnitFragment();
-        converter.Confirm("0","VOLUME",0);
-        frVolume.unitOfFragment = "VOLUME";
-        SendDataToChild(converter.GetArrName(),frVolume);
+        SendDataToChild("VOLUME", frVolume);
         adapter.addFragment(frVolume, "VOLUME");
 
         viewPager.setAdapter(adapter);
@@ -109,12 +101,16 @@ public class ConverterUnitFragment extends Fragment {
 
     /**
      * This is function send data to children
-     * @param sign : array sign of unit
+     * @param unit : unit each tab layout
      * @param fr : fragment children
      */
-    private void SendDataToChild(String[] sign,UnitFragment fr)
+    private void SendDataToChild(String unit, UnitFragment fr)
     {
-        for(int i=0;i<sign.length;i++)
-            fr.listNameUnit.add(sign[i]);
+        UnitConverter converter = new UnitConverter();
+        converter.Confirm("0",unit,0);
+        Bundle bundle = new Bundle();
+        bundle.putString("UNIT",unit);
+        bundle.putStringArray("SIGN",converter.GetArrName().clone());
+        fr.setArguments(bundle);
     }
 }

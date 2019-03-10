@@ -32,8 +32,8 @@ public class UnitFragment extends Fragment {
     private UnitConverter converter;
     private int curSignUnitChoice;
     private ArrayAdapter<String> adapter;
-    public List<String> listNameUnit = new ArrayList<String>();
-    public String unitOfFragment;
+    //public List<String> listNameUnit = new ArrayList<String>();
+    private String unitOfFragment;
 
     @Nullable
     @Override
@@ -48,7 +48,9 @@ public class UnitFragment extends Fragment {
         tvValueIds = new int[] {R.id.tvvalue1,R.id.tvvalue2,R.id.tvvalue3,
                 R.id.tvvalue4,R.id.tvvalue5,R.id.tvvalue6};
         MappingView();
-        adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, listNameUnit);
+        Bundle bundle = getArguments();
+        unitOfFragment = bundle.getString("UNIT");
+        adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, bundle.getStringArray("SIGN"));
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spUnit.setAdapter(adapter);
 
