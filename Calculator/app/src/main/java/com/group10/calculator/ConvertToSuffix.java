@@ -71,7 +71,8 @@ public class ConvertToSuffix extends FormatException {
             if (IsOperator(op.get(i)) == 0) {
                 expression.Push(op.get(i));
             } else if (op.get(i).equals("%")) {
-                expression.Push(Double.parseDouble(expression.Pop()) / 100 + "");
+                double n = Double.parseDouble(expression.Pop())/100;
+                expression.Push(n + "");
             } else {
                 String y = expression.Pop();
                 String x = expression.Pop();
@@ -129,6 +130,7 @@ public class ConvertToSuffix extends FormatException {
         MyStack expression = new MyStack();
         MyStack operator = MyStack.CloneStack(operatorStack);
         MyStack operand = MyStack.CloneStack(operandStack);
+        Test(operator, operand);
         while (!operator.StackIsEmpty()) {
             operand.Push(operator.Pop());
         }
@@ -155,5 +157,25 @@ public class ConvertToSuffix extends FormatException {
             }
         }
         return expression.Pop();
+    }
+
+    private void Test(MyStack operator, MyStack operand){
+        int countOperand = 0,countOperator = 0;
+        for(Node p = operand.pTop;p!=null;p=p.pNext){
+            if(GetOperator(p.infoNode) == 1 || GetOperator(p.infoNode) == 2){
+                countOperator++;
+            }else if(GetOperator(p.infoNode) != 3){
+                countOperand++;
+            }
+        }
+        for(Node q = operator.pTop;q!=null;q=q.pNext){
+            if(GetOperator(q.infoNode) == 1 || GetOperator(q.infoNode) == 2){
+                countOperator++;
+            }else if(GetOperator(q.infoNode) != 3){
+                countOperand++;
+            }
+        }
+        if(countOperand == countOperator)
+            MyStack.ReverseStack(operator);
     }
 }

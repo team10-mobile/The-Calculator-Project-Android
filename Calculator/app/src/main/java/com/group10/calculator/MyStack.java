@@ -98,4 +98,16 @@ public class MyStack {
         }
         return temp;
     }
+
+    /**
+     * @param stack: stack need reverse
+     *             This is function that has a stack reverse function
+     */
+    public static void ReverseStack(MyStack stack){
+        MyStack temp = new MyStack();
+        for(Node p = stack.pTop; p!=null;p=p.pNext){
+            temp.Push(p.infoNode);
+        }
+        stack.pTop = temp.pTop;
+    }
 }

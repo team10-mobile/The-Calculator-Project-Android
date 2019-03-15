@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -67,7 +68,8 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         Button btn = (Button) activity.findViewById(v.getId());
         String data = btn.getText().toString();
         String tag = btn.getTag().toString();
-        if (appConvert.Result.equals("Error")) {
+        if (appConvert.Result.equals("Error") ||
+                txtExpression.getText().toString().equals("Infinity")) {
             numberCurrent = "";
             appConvert.Result = "";
             appConvert.operatorStack.Destroy();
@@ -152,7 +154,8 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         if (clickOperand) {
             if (!appConvert.operandStack.StackIsEmpty()) appConvert.operandStack.Pop();
         }
-        appConvert.operandStack.Push(numberCurrent);
+        if(numberCurrent.equals("00")) numberCurrent = "0";
+        appConvert.operandStack.Push( numberCurrent);
         UpdateExpression();
     }
 
