@@ -121,8 +121,8 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
      */
     private void OperatorButtonClicked(String operator) {
         if (appConvert.operatorStack.StackIsEmpty() &&
-                appConvert.operandStack.StackIsEmpty() &&
-                !operator.equals("-")) return;
+                appConvert.operandStack.StackIsEmpty()) return;
+
         if (!clickOperator) {
             appConvert.PushOperator(operator);
             numberCurrent = "";
@@ -232,8 +232,9 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
      * This is function handle event Delete Button clicked. It returns to previous user actions
      */
     private void DeleteButtonClicked() {
-        txtExpression.setText("0");
-        numberCurrent = "";
+        String temp = txtHistory.getText().toString();
+        ClearButtonClicked();
+        txtHistory.setText(temp);
     }
 
     private void AddValueHistory(String _result, String _operand) {
