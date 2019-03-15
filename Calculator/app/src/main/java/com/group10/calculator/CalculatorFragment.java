@@ -196,6 +196,7 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         txtExpression.setText(stringExpress);
     }
 
+
     /**
      * This is function handle event Total Button clicked
      */
@@ -214,6 +215,7 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         appConvert.operandStack.Push(numberCurrent);
         clickOperator = false;
         clickOperand = true;
+        AddValueHistory(txtHistory.getText().toString(),txtExpression.getText().toString());
     }
 
     /**
@@ -239,7 +241,11 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         ClearButtonClicked();
         txtHistory.setText(temp);
     }
-
+    /**
+     * This is function handle give value when have total and perform into HistoryFragment
+     *
+     * @Author by: Trần Quang Long
+     */
     private void AddValueHistory(String _result, String _operand) {
 
         Set<String> stringSet = new HashSet<>();
