@@ -1,10 +1,12 @@
 package com.group10.calculator;
 
-public class STACK {
+public class MyStack {
     public Node pTop;
+    private Node pTail;
 
-    public STACK() {
+    public MyStack() {
         pTop = null;
+        pTail = null;
     }
 
     /**
@@ -29,7 +31,7 @@ public class STACK {
     }
 
     /**
-     * @return a node at the top of stack and delete itself
+     * @return data of node at the top of stack and delete itself
      */
     public String Pop() {
         if (StackIsEmpty()) {
@@ -42,9 +44,22 @@ public class STACK {
     }
 
     /**
+     * This is function to remove the nodes in the stack
+     */
+    public void Destroy() {
+        while (!StackIsEmpty()) {
+            Node p = pTop;
+            pTop = pTop.pNext;
+            p = null;
+        }
+    }
+
+    /**
      * @return a node at the top of stack and don't delete itself
      */
     public String Peak() {
+        if (StackIsEmpty())
+            return null;
         return pTop.infoNode;
     }
 
@@ -59,4 +74,28 @@ public class STACK {
         return null;
     }
 
+    /**
+     * @param p: data of node
+     *           This is function to add nodes at the end of the stack
+     */
+    private void AddLast(Node p) {
+        if (StackIsEmpty()) {
+            pTop = pTail = p;
+        } else {
+            pTail.pNext = p;
+            pTail = p;
+        }
+    }
+
+    /**
+     * @param stack: stack need to copy
+     * @return a copy of A
+     */
+    public static MyStack CloneStack(MyStack stack) {
+        MyStack temp = new MyStack();
+        for (Node p = stack.pTop; p != null; p = p.pNext) {
+            temp.AddLast(p);
+        }
+        return temp;
+    }
 }

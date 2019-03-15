@@ -1,34 +1,32 @@
 package com.group10.calculator;
 
+import android.nfc.FormatException;
+
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
 /**
- * This is class coverts an intermediate expression to suffix expression
+ * This is class coverts an intermediate expression to suffix expression and relies on it
+ * to calculate the result
  */
-public class ConvertToSuffix {
-    private String Result;
-    public STACK operandStack;
-    public STACK operatorStack;
-    public String getResult() {
-        return Result;
-    }
-    public void setResult(String result) {
-        Result = result;
-    }
+public class ConvertToSuffix extends FormatException {
+    public String Result;
+    public MyStack operandStack;
+    public MyStack operatorStack;
 
     public ConvertToSuffix() {
-        operandStack = new STACK();
-        operatorStack = new STACK();
+        operandStack = new MyStack();
+        operatorStack = new MyStack();
+        Result = "";
     }
 
     /**
      * @param infoNode: data of node
-     * @return 1 if infoNode is kind of (+,-), 2 if is kind of (*,/,%), default 0
+     * @return 1 if infoNode is kind of "+" or "-", 2 if is kind of "*" or "/" or "%", default 0
      */
     public int GetOperator(String infoNode) {
-        if ("*".equals(infoNode) || "/".equals(infoNode) || "%".equals(infoNode)) {
+        if ("%".equals(infoNode)) {
+            return 3;
+        } else if ("*".equals(infoNode) || "/".equals(infoNode)) {
             return 2;
         } else if ("+".equals(infoNode) || "-".equals(infoNode)) {
             return 1;
@@ -63,30 +61,44 @@ public class ConvertToSuffix {
      * This is function calculates the result of an expression
      */
     public void ResultOfExpression() {
-        STACK expression = new STACK();
+        MyStack expression = new MyStack();
         ArrayList<String> op = new ArrayList<>();
-
+        IsExistOperator();
         for (Node p = operandStack.pTop; p != null; p = p.pNext) {
             op.add(p.infoNode);
         }
         for (int i = op.size() - 1; i >= 0; i--) {
             if (IsOperator(op.get(i)) == 0) {
                 expression.Push(op.get(i));
+            } else if (op.get(i).equals("%")) {
+                expression.Push(Double.parseDouble(expression.Pop()) / 100 + "");
             } else {
-                double b = Double.parseDouble(expression.Pop());
-                double a = Double.parseDouble(expression.Pop());
-                if (op.get(i).equals("+")) {
-                    expression.Push((a + b) + "");
-                } else if (op.get(i).equals("-")) {
-                    expression.Push((a - b) + "");
-                } else if (op.get(i).equals("*")) {
-                    expression.Push((a * b) + "");
-                } else if (op.get(i).equals("/")) {
-                    expression.Push((a / b) + "");
+                String y = expression.Pop();
+                String x = expression.Pop();
+                if (x == null && y == null) {
+                    expression.Push("Error");
+                } else if (y != null && x == null) {
+                    expression.Push(Double.parseDouble(y) + "");
+                } else {
+                    double b = Double.parseDouble(y);
+                    double a = Double.parseDouble(x);
+                    if (op.get(i).equals("+")) {
+                        expression.Push((a + b) + "");
+                    } else if (op.get(i).equals("-")) {
+                        expression.Push((a - b) + "");
+                    } else if (op.get(i).equals("*")) {
+                        expression.Push((a * b) + "");
+                    } else if (op.get(i).equals("/")) {
+                        expression.Push((a / b) + "");
+                    }
                 }
             }
         }
-        setResult(expression.Pop());
+        if (expression.Peak().equals("Error")) {
+            Result = expression.Pop();
+        } else {
+            Result = Double.parseDouble(expression.Pop()) + "";
+        }
     }
 
     /**
@@ -111,17 +123,37 @@ public class ConvertToSuffix {
     }
 
     /**
-     * @param expression:
-     * This is function converts a intermediate expression to suffix expression
+     * @return the expression has been converted from suffix to intermediate
      */
-    public void ConvertIntermediateToSuffix(List<String> expression){
-        for(int i = 0;i<expression.size();i++){
-            if(GetOperator(expression.get(i)) == 0){
-                operandStack.Push(expression.get(i));
-            }else{
-                PushOperator(expression.get(i));
+    public String ConvertSuffixToIntermediate() {
+        MyStack expression = new MyStack();
+        MyStack operator = MyStack.CloneStack(operatorStack);
+        MyStack operand = MyStack.CloneStack(operandStack);
+        while (!operator.StackIsEmpty()) {
+            operand.Push(operator.Pop());
+        }
+        ArrayList<String> operatorList = new ArrayList<>();
+        for (Node p = operand.pTop; p != null; p = p.pNext) {
+            operatorList.add(p.infoNode);
+        }
+        for (int i = operatorList.size() - 1; i >= 0; i--) {
+            if (IsOperator(operatorList.get(i)) == 0) {
+                expression.Push(operatorList.get(i));
+            } else {
+                if (operatorList.get(i).equals("%")) {
+                    expression.Push(expression.Pop() + "%");
+                } else {
+                    String b = expression.Pop();
+                    String a = expression.Pop();
+                    if (b == null) b = "";
+                    if (a == null) {
+                        a = b;
+                        b = "";
+                    }
+                    expression.Push(a + operatorList.get(i) + b);
+                }
             }
         }
-        IsExistOperator();
+        return expression.Pop();
     }
 }

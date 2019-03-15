@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +19,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static android.widget.Toast.*;
+import static android.widget.Toast.LENGTH_LONG;
 
 /**
  * This is class extends fragment to display on MainActivity
@@ -27,20 +32,11 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
     TextView txtExpression;
 
     Button[] btnArray;
-    List<String> polynomial = new ArrayList<String>();
     ConvertToSuffix appConvert;
-
     String numberCurrent = "";
-    /**
-     * To save the expression after clicking the operand
-     */
-    String expression = "";
-    /**
-     * To save the expression after clicking the operator
-     */
-    String expression2 = "";
 
-    boolean operatorClicked;
+    boolean clickOperand = false;
+    boolean clickOperator = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +46,6 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         MappingView();
         return activity;
     }
-
 
     /**
      * This is the class to map and capture click event for all views
@@ -69,11 +64,25 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-
         Button btn = (Button) activity.findViewById(v.getId());
         String data = btn.getText().toString();
         String tag = btn.getTag().toString();
+        if (appConvert.Result.equals("Error")) {
+            numberCurrent = "";
+            appConvert.Result = "";
+            appConvert.operatorStack.Destroy();
+            appConvert.operandStack.Destroy();
+        }
+        CheckButton(data, tag);
+    }
 
+    /**
+     * @param data: data of button
+     * @param tag:  tag of button
+     *              This is function that checks which button is pressed and calls the function
+     *              to handle it
+     */
+    private void CheckButton(String data, String tag) {
         if ("num".equals(tag)) {
             OperandButtonClicked(data);
         } else if ("operator".equals(tag)) {
@@ -89,7 +98,37 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         } else if ("clear".equals(tag)) {
             ClearButtonClicked();
         } else if ("percent".equals(tag)) {
-            PercentButtonClicked();
+            PercentButtonClicked(data);
+        }
+    }
+
+    /**
+     * @param percent: text of button
+     *                 This is function handle event Percent Button clicked
+     */
+    private void PercentButtonClicked(String percent) {
+        if (appConvert.operatorStack.StackIsEmpty() &&
+                appConvert.operandStack.StackIsEmpty()) return;
+        if (clickOperand) {
+            appConvert.PushOperator(percent);
+            UpdateExpression();
+        }
+    }
+
+    /**
+     * @param operator: text of button
+     *                  This is function handle event Operator Button clicked
+     */
+    private void OperatorButtonClicked(String operator) {
+        if (appConvert.operatorStack.StackIsEmpty() &&
+                appConvert.operandStack.StackIsEmpty() &&
+                !operator.equals("-")) return;
+        if (!clickOperator) {
+            appConvert.PushOperator(operator);
+            numberCurrent = "";
+            clickOperator = true;
+            clickOperand = false;
+            UpdateExpression();
         }
     }
 
@@ -101,20 +140,20 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         if (!numberCurrent.contains(".")) {
             numberCurrent += ".";
         }
-        txtExpression.setText(expression2 + numberCurrent);
+        UpdateOperand();
+        clickOperand = true;
     }
 
     /**
-     * This is function handle event PlusMinus Button clicked
+     * This is function that updates the operand that is in the stack each time it is changed
+     * by Dot Button and PlusMinusButton
      */
-    private void PlusMinusButtonClicked() {
-        if (numberCurrent.contains("-")) {
-            numberCurrent = numberCurrent.replace("-", "");
-        } else {
-            numberCurrent = "-" + numberCurrent;
+    private void UpdateOperand() {
+        if (clickOperand) {
+            if (!appConvert.operandStack.StackIsEmpty()) appConvert.operandStack.Pop();
         }
-        txtExpression.setText(expression2 + numberCurrent);
-        expression = txtExpression.getText().toString();
+        appConvert.operandStack.Push(numberCurrent);
+        UpdateExpression();
     }
 
     /**
@@ -123,101 +162,87 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
      */
     private void OperandButtonClicked(String data) {
         numberCurrent += data;
-        txtExpression.setText(expression2 + numberCurrent);
-        expression = txtExpression.getText().toString();
-        operatorClicked = false;
+        UpdateOperand();
+        clickOperand = true;
+        clickOperator = false;
     }
 
     /**
-     * @param data: text of button
-     *              This is function handle event Operator Button clicked
+     * This is function handle event PlusMinus Button clicked
      */
-    private void OperatorButtonClicked(String data) {
-        if (!operatorClicked) {
-            if (!numberCurrent.equals("")) {
-                polynomial.add(numberCurrent);
-                polynomial.add(data);
-            }
+    private void PlusMinusButtonClicked() {
+        if (appConvert.operatorStack.StackIsEmpty() &&
+                appConvert.operandStack.StackIsEmpty()) return;
 
-            txtExpression.setText(expression + data);
-            expression2 = txtExpression.getText().toString();
-            numberCurrent = "";
-            operatorClicked = true;
+        if (clickOperand) {
+            if (numberCurrent.contains("-")) {
+                numberCurrent = numberCurrent.replace("-", "");
+            } else {
+                numberCurrent = "-" + numberCurrent;
+            }
+            UpdateOperand();
         }
+    }
+
+
+    /**
+     * This is function to update the current expression, each time the user completes an operation
+     */
+    private void UpdateExpression() {
+        String stringExpress = appConvert.ConvertSuffixToIntermediate();
+        txtExpression.setText(stringExpress);
     }
 
     /**
      * This is function handle event Total Button clicked
      */
     private void TotalButtonClicked() {
-        if (!operatorClicked)
-            polynomial.add(numberCurrent);
-        if(polynomial.size() == 0) return;
-        int index = polynomial.size() - 1;
-        if (appConvert.GetOperator(polynomial.get(index)) != 0) {
-            polynomial.remove(index);
-        }
-        String s = "";
-        for (int i = 0; i < polynomial.size(); i++) {
-            s = s + " " + polynomial.get(i);
-        }
-        appConvert.ConvertIntermediateToSuffix(polynomial);
+        if (appConvert.operandStack.StackIsEmpty() &&
+                appConvert.operatorStack.StackIsEmpty()) return;
+
+        txtHistory.setText(appConvert.ConvertSuffixToIntermediate());
         appConvert.ResultOfExpression();
+        numberCurrent = appConvert.Result;
+        txtExpression.setText(numberCurrent);
+        if (appConvert.Result.equals("Error")) return;
 
-        txtHistory.setText(s);
-        txtExpression.setText(appConvert.getResult());
-        numberCurrent = appConvert.getResult();
-        polynomial = new ArrayList<String>();
-        expression2 = "";
-        expression = appConvert.getResult();
-        operatorClicked = false;
-
-        AddValueHistory(txtHistory.getText().toString(),txtExpression.getText().toString());
+        appConvert.operandStack.Destroy();
+        appConvert.operatorStack.Destroy();
+        appConvert.operandStack.Push(numberCurrent);
+        clickOperator = false;
+        clickOperand = true;
     }
 
     /**
-     * This is function handle event Clear Button clicked
+     * This is function handle event Clear Button clicked. It resets all of
+     * CalculatorFragment's status to the beginning
      */
     private void ClearButtonClicked() {
-        expression = "";
-        expression2 = "";
+        appConvert.operandStack.Destroy();
+        appConvert.operatorStack.Destroy();
+        appConvert.Result = "";
         numberCurrent = "";
-        appConvert = new ConvertToSuffix();
-        polynomial = new ArrayList<String>();
         txtExpression.setText("0");
         txtHistory.setText("0");
+        clickOperator = false;
+        clickOperand = false;
     }
 
     /**
-     * This is function handle event Delete Button clicked
+     * This is function handle event Delete Button clicked. It returns to previous user actions
      */
     private void DeleteButtonClicked() {
         txtExpression.setText("0");
         numberCurrent = "";
-        expression2 = "";
     }
 
-    /**
-     * This is function handle event Percent Button clicked
-     */
-    private void PercentButtonClicked() {
-        if(numberCurrent.equals("")) return;;
-        if (!operatorClicked) {
-            String value = String.valueOf((Double.parseDouble(numberCurrent) / 100));
-            txtExpression.setText(expression2 + value);
-            txtHistory.setText(expression2 + value);
-            numberCurrent = value;
-            expression = txtExpression.getText().toString();
-        }
-    }
-
-    private void AddValueHistory(String _result, String _operand)
-    {
+    private void AddValueHistory(String _result, String _operand) {
 
         Set<String> stringSet = new HashSet<>();
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences =
+                this.getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
 
-        stringSet = sharedPreferences.getStringSet("data",stringSet);
+        stringSet = sharedPreferences.getStringSet("data", stringSet);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
@@ -225,7 +250,7 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         Date time = calendar.getTime();
         String value = _result + "|" + _operand + "|" + simpleDateFormat.format(time);
         stringSet.add(value);
-        editor.putStringSet("data",stringSet);
+        editor.putStringSet("data", stringSet);
         editor.commit();
 
     }
